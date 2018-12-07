@@ -80,13 +80,13 @@ if len(sys.argv) != 9:
     exit()
 
 if sys.argv[1] == '-s':
-    sub = sys.argv[2]
+    given_s = sys.argv[2]
 elif sys.argv[3] == '-s':
-    sub = sys.argv[4]
+    given_s = sys.argv[4]
 elif sys.argv[5] == '-s':
-    sub = sys.argv[6]
+    given_s = sys.argv[6]
 elif sys.argv[7] == '-s':
-    sub = sys.argv[8]
+    given_s = sys.argv[8]
 else:
     print('usage: lock -d <directory to lock> -p <public key of unlocking party> -r <private key to sign keyfile> -s <subject>')
     exit()
@@ -142,8 +142,8 @@ pr_s_type = priv_key_file.readline()
 pr_key = priv_key_file.read()
 priv_key_file.close()
 
-print('sub = ' + sub + '\n')
-print('given_s = ' + given_s + '\n')
+#print('sub = ' + sub + '\n')
+#print('given_s = ' + given_s + '\n')
 
 if sub != given_s:
     print("Error, subject not correct\n")
