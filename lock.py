@@ -129,7 +129,7 @@ else:
 
 pub_key_file = open(pub_name, "r")
 sub = pub_key_file.readline()
-# sub = sub[:-1]
+sub = sub[:-1]
 # print(sub)
 # print(given_s)
 pb_s_type = pub_key_file.readline()

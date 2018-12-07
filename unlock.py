@@ -104,13 +104,13 @@ if len(sys.argv) != 9:
     exit()
 
 if sys.argv[1] == '-s':
-    sub = sys.argv[2]
+    given_s = sys.argv[2]
 elif sys.argv[3] == '-s':
-    sub = sys.argv[4]
+    given_s = sys.argv[4]
 elif sys.argv[5] == '-s':
-    sub = sys.argv[6]
+    given_s = sys.argv[6]
 elif sys.argv[7] == '-s':
-    sub = sys.argv[8]
+    given_s = sys.argv[8]
 else:
     print('usage: keygen -d <directory to unlock> -p <public key of locking party> -r <private key to decrypt keyfile> -s <subject>')
     exit()
