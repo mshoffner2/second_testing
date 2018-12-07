@@ -21,7 +21,8 @@ def make_AES_key(pub_key, priv_key, root_dir):
     ciphertext = cipher.encrypt(aes_key)
 
     # adjust, use os.path join
-    key_file = open(root_dir + "/keyfile", "wb")
+    key_f_name = os.path.join(root_dir, "keyfile")
+    key_file = open(key_f_name, "wb")
     key_file.write(ciphertext)
     key_file.close()
 
@@ -31,7 +32,8 @@ def make_AES_key(pub_key, priv_key, root_dir):
     signer = DSS.new(ec_key, 'fips-186-3')
     final_sig = signer.sign(sig_hash)
 
-    sig_file = open(root_dir + '/keyfile.sig', "wb")
+    key_f_name = os.path.join(root_dir, "keyfile.sig")
+    sig_file = open(key_f_name, "wb")
     sig_file.write(final_sig)
     sig_file.close()
 
@@ -49,7 +51,7 @@ def enc_all_files(aes_key, root_dir):
                 # encrypt
                 # change to os.path join
                 my_cipher = AES.new(aes_key, AES.MODE_GCM)
-                temp_name = dir_name + '/' + f_name
+                temp_name = os.path.join(dir_name, f_name)
                 # print(temp_name)
                 file_in = open(temp_name, 'r')
                 data = file_in.read()

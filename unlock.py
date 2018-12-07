@@ -30,11 +30,13 @@ def check_keyfile_and_fetch_aes_key(root_dir, pub_name, priv_name, given_s):
     pr_key = priv_key_file.read()
     priv_key_file.close()
 
-    sig_file = open(root_dir + '/keyfile.sig', "rb")
+    temp_f_name = os.path.join(root_dir, 'keyfile.sig')
+    sig_file = open(temp_f_name, "rb")
     true_sig = sig_file.read()
     sig_file.close()
 
-    aes_file = open(root_dir + '/keyfile', "rb")
+    temp_f_name = os.path.join(root_dir, 'keyfile')
+    aes_file = open(temp_f_name, "rb")
     cipher_aes = aes_file.read()
     aes_file.close()
     ec_key = ECC.import_key(pb_key)
@@ -55,8 +57,10 @@ def check_keyfile_and_fetch_aes_key(root_dir, pub_name, priv_name, given_s):
     aes_key = cipher.decrypt(cipher_aes)
 
     # delete keyfile and keyfile.sig
-    os.remove(root_dir + '/keyfile')
-    os.remove(root_dir + '/keyfile.sig')
+    temp_f_name = os.path.join(root_dir, 'keyfile')
+    os.remove(temp_f_name)
+    temp_f_name = os.path.join(root_dir, 'keyfile.sig')
+    os.remove(temp_f_name)
 
     return(aes_key)
 
@@ -68,7 +72,7 @@ def decrypt_all_files(aes_key, root_dir):
             # do the stuff, encrypt and the like
             # print('found ' + f_name + '\n')
             if f_name != 'keyfile' and f_name != 'keyfile.sig':
-                temp_name = dir_name + '/' + f_name
+                temp_name = os.path.join(dir_name, f_name)
                 file_in = open(temp_name, "rb")
                 nonce, tag, ciphertext = [file_in.read(x) for x in (16, 16, -1)]
                 file_in.close()
