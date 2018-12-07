@@ -76,7 +76,7 @@ root_d = "test"
 priv_name = "privkey_ec.txt"
 
 if len(sys.argv) != 9:
-    print('usage: keygen -d <directory to lock> -p <public key of unlocking party> -r <private key to sign keyfile> -s <subject>')
+    print('usage: lock -d <directory to lock> -p <public key of unlocking party> -r <private key to sign keyfile> -s <subject>')
     exit()
 
 if sys.argv[1] == '-s':
@@ -88,7 +88,7 @@ elif sys.argv[5] == '-s':
 elif sys.argv[7] == '-s':
     sub = sys.argv[8]
 else:
-    print('usage: keygen -d <directory to lock> -p <public key of unlocking party> -r <private key to sign keyfile> -s <subject>')
+    print('usage: lock -d <directory to lock> -p <public key of unlocking party> -r <private key to sign keyfile> -s <subject>')
     exit()
 
 if sys.argv[1] == '-p':
@@ -100,7 +100,7 @@ elif sys.argv[5] == '-p':
 elif sys.argv[7] == '-p':
     pub_name = sys.argv[8]
 else:
-    print('usage: keygen -d <directory to lock> -p <public key of unlocking party> -r <private key to sign keyfile> -s <subject>')
+    print('usage: lock -d <directory to lock> -p <public key of unlocking party> -r <private key to sign keyfile> -s <subject>')
     exit()
 
 if sys.argv[1] == '-r':
@@ -112,7 +112,7 @@ elif sys.argv[5] == '-r':
 elif sys.argv[7] == '-r':
     priv_name = sys.argv[8]
 else:
-    print('usage: keygen -t <type of key pair> -s <subject> -pub <path to public key file> -priv <paht to private key file>')
+    print('usage: lock -t <type of key pair> -s <subject> -pub <path to public key file> -priv <paht to private key file>')
     exit()
 
 if sys.argv[1] == '-d':
@@ -124,12 +124,12 @@ elif sys.argv[5] == '-d':
 elif sys.argv[7] == '-d':
     root_d = sys.argv[8]
 else:
-    print('usage: keygen -d <directory to lock> -p <public key of unlocking party> -r <private key to sign keyfile> -s <subject>')
+    print('usage: lock -d <directory to lock> -p <public key of unlocking party> -r <private key to sign keyfile> -s <subject>')
     exit()
 
 pub_key_file = open(pub_name, "r")
 sub = pub_key_file.readline()
-sub = sub[:-1]
+# sub = sub[:-1]
 # print(sub)
 # print(given_s)
 pb_s_type = pub_key_file.readline()
