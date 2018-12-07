@@ -7,19 +7,19 @@ import sys
 
 def get_ec_key(subject, pub_path, priv_path):
     complete_key = ECC.generate(curve='P-256')
-    pub_key = complete_key.public_key().export_key("PEM")
-    priv_key = complete_key.export_key("PEM")
+    pub_key = complete_key.public_key().export_key(format='PEM')
+    priv_key = complete_key.export_key(format='PEM')
 
     pub_file = open(pub_path, "w")
-    pub_file.write(str(subject) + '\n')
-    pub_file.write('ECC' + '\n')
-    pub_file.write(str(pub_key))
+    pub_file.write(subject + '\n')
+    pub_file.write('ECC\n')
+    pub_file.write(pub_key)
     pub_file.close()
 
     priv_file = open(priv_path, "w")
-    priv_file.write(str(subject) + '\n')
-    priv_file.write('ECC' + '\n')
-    priv_file.write(str(priv_key) + '\n')
+    priv_file.write(subject + '\n')
+    priv_file.write('ECC\n')
+    priv_file.write(priv_key)
     priv_file.close()
 
 
@@ -32,21 +32,21 @@ def get_rsa_key(subject, pub_path, priv_path):
     pub_file = open(pub_path, "w")
     pub_file.write(str(subject) + '\n')
     pub_file.write('RSA' + '\n')
-    pub_file.write(str(pub_key))
+    pub_file.write(str(pub_key, 'utf-8') + '\n')
     pub_file.close()
 
     priv_file = open(priv_path, "w")
     priv_file.write(str(subject) + '\n')
     priv_file.write('RSA' + '\n')
-    priv_file.write(str(priv_key) + '\n')
+    priv_file.write(str(priv_key, 'utf-8') + '\n')
     priv_file.close()
 
 
 # need to wrap it in command line stuff, and give rsa vs ec option
 
-sub = ""
-pub_f_name = ""
-priv_f_name = ""
+sub = "Michaela"
+pub_f_name = "pubkey_ec.txt"
+priv_f_name = "privkey_ec.txt"
 # length_n = 0
 
 if len(sys.argv) != 9:
@@ -89,7 +89,7 @@ else:
     print('usage: keygen -t <type of key pair> -s <subject> -pub <path to public key file> -priv <paht to private key file>')
     exit()
 
-key_type = ""
+key_type = "ec"
 if sys.argv[1] == '-t':
     key_type = sys.argv[2]
 elif sys.argv[3] == '-t':
@@ -103,9 +103,9 @@ else:
     exit()
 
 
+
 if key_type == "rsa":
     get_rsa_key(sub, pub_f_name, priv_f_name)
 
 if key_type == "ec":
     get_ec_key(sub, pub_f_name, priv_f_name)
-
