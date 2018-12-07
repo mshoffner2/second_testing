@@ -1,7 +1,5 @@
 from Crypto.PublicKey import RSA
 from Crypto.PublicKey import ECC
-
-# import os
 import sys
 
 
@@ -47,7 +45,6 @@ def get_rsa_key(subject, pub_path, priv_path):
 sub = "Michaela"
 pub_f_name = "pubkey_ec.txt"
 priv_f_name = "privkey_ec.txt"
-# length_n = 0
 
 if len(sys.argv) != 9:
     print('usage: keygen -t <type of key pair> -s <subject> -pub <path to public key file> -priv <paht to private key file>')
