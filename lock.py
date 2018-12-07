@@ -142,6 +142,9 @@ pr_s_type = priv_key_file.readline()
 pr_key = priv_key_file.read()
 priv_key_file.close()
 
+print('sub = ' + sub + '\n')
+print('given_s = ' + given_s + '\n')
+
 if sub != given_s:
     print("Error, subject not correct\n")
     exit(1)
